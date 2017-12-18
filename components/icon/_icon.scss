@@ -15,6 +15,12 @@
     justify-content: center;
     align-items: center;
 
+    &.clickable {
+        &:not([disabled]) {
+            cursor: pointer;
+        }
+    }
+
     &[disabled] {
         opacity: 0.7;
     }

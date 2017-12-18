@@ -11,6 +11,7 @@ import Tabs from './Tabs.stories.js';
 import Form from './Form.stories.js';
 import Radios from './Radio.stories.js';
 import RadioGroups from './RadioGroup.stories.js';
+import Select from './Select.stories.js';
 
 import DefaultButtons from './buttons/DefaultButtons.stories.js';
 import OutlineButtons from './buttons/OutlineButtons.stories.js';
@@ -20,9 +21,6 @@ import LinkButtons from './buttons/LinkButtons.stories.js';
 
 storiesOf('Colors', module)
 	.add('Color Palette', () => <Colors />);
-
-storiesOf('Typography', module)
-	.add('Typography', () => <Typography />);
 
 storiesOf('Buttons', module)
 	.add('Default', () => <DefaultButtons />)
@@ -34,8 +32,8 @@ storiesOf('Checkboxes', module)
 	.add('Checkboxes', () => <Checkboxes />);
 
 storiesOf('Input Fields', module)
-	.add('Input Text', () => <Input />);
-
+	.add('Input Text', () => <Input />)
+	.add('Select Box', () => <Select />);
 
 storiesOf('Icons', module)
 	.add('SVG Icons', () => <Icons />);
@@ -49,6 +47,9 @@ storiesOf('Tabs', module)
 
 storiesOf('Tiles', module)
 	.add('Tiles', () => <Tiles />);
+
+storiesOf('Typography', module)
+	.add('Typography', () => <Typography />);
 
 storiesOf('Form Example', module)
 	.add('Form Example', () => <Form/>);

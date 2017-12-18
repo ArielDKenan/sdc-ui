@@ -41,7 +41,7 @@ $limeade:  darken($green, 2%);
 $lima: lighten($green,6%);
 $japanese-laurel:  darken($green, 14%);
 $tamarillo: darken($red, 11%);
-$torch-red: lighten(saturate($red, 25%), 5%);
+$torch-red: lighten($red, 5%);
 $red-oxide: darken($red, 22%);
 $buttercup: darken($yellow, 7%);
 $gold: adjust_hue($yellow, 7%);

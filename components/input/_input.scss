@@ -1,9 +1,25 @@
-.sdc-input {
+$input-max-width: 415px;
+$input-height: 38px;
+$input-padding: 10px;
+$animation-duration: 0.3s;
+
+.sdc-input__wrapper {
+  position: relative;
   margin-bottom: 10px;
+  max-width: $input-max-width;
+
+  &.required {
+    .sdc-input__label::before {
+      content: '*';
+      color: $red;
+      margin: 0 4px 0 0;
+    }
+  }
 
   .sdc-input__label {
-    margin-bottom: 5px;
     display: block;
+    margin-bottom: 5px;
+    color: $text-black;
     @extend .body-3-semibold;
 
     &.required::before {
@@ -13,43 +29,129 @@
     }
   }
 
-  .sdc-input__input {
-    @include box-sizing;
-    padding: 0 10px;
-    height: 38px;
-    width: 100%;//415px;
-    border: solid 1px $light-gray;
-    border-radius:2px;
-    color: $dark-gray;
+  // .sdc-input__error{
+  //   margin-top: 2px;
+  //   margin-left: 2px;
+  //   @extend .body-3;
+  // }
 
-    &.error, &.error:focus, &.error:disabled  {
-      border: solid 1px $red;
-      color: $red;
-      outline: none;
+  .sdc-input__error{
+    display: none;
+    color: $red;
+    margin: 4px 0;
+    @extend .body-3;
+
+    .svg-icon.__exclamationTriangleFull {
+      width: 12px;
+      height: 10px;
+      margin-right: 6px;
+    }
+  }
+
+  &.error {
+    .sdc-input.sdc-select {
+      &, &:focus, &.uncollapsed {
+        border-color: $red;
+
+        + .svg-icon-wrapper {
+          fill: $red;
+        }
+      }
+
+    //   &.placeholder {
+    //     color: $red;
+    //     font-style: italic;
+    //   }
+    //   &::-webkit-input-placeholder /* Chrome/Opera/Safari */  {
+    //     color: $red;
+    //     font-style: italic;
+    //   }
+    //   &::-moz-placeholder  /* Firefox 19+ */  {
+    //     color: $red;
+    //     font-style: italic;
+    //   }
+    //   &:-moz-placeholder  /* Firefox 18- */  {
+    //     color: $red;
+    //     font-style: italic;
+    //   }
+    //   &:-ms-input-placeholder  /* IE 10+ */  {
+    //     color: $red;
+    //     font-style: italic;
+    //   }
     }
 
-    &:read-only{
+    .sdc-input__error {
+      display: block;
+    }
+
+    .sdc-select__menu {
+      border-color: $red;
+
+      &.sdc-select__menu--top { // what? changing color will style the top border, and 
+        bottom: 58px;
+      }
+
+      .sdc-select__option {
+        &.selected {
+          color: $red;
+          background: transparentize($red, .8);
+        }
+      }
+    }
+  }
+  
+  .sdc-input {
+    position: relative;
+    @include box-sizing;
+    padding: 0 $input-padding;
+    border: solid 1px $light-gray;
+    border-radius: 2px;
+    outline: none;
+
+    height: $input-height;
+    max-width: $input-max-width;
+    width: 100%;
+
+    background: white;
+    @extend .body-1;
+    color: $dark-gray;
+
+    &:focus, &.uncollapsed {
+      border-color: $light-blue;
+      outline: none;
+      color: $text-black;
+    }
+
+    &.disabled, &:disabled {
+      border-color: $light-gray;
+      background: $background-gray;
+      color: $gray;
+      cursor: default;
+    }
+
+    &.error {
+      &, &:focus, &:disabled, &.disabled {
+        border-color: $red;
+        color: $red;
+      }
+    }
+
+    &:read-only {
       border: none;
       outline: none;
       color: $text-black
     }
+
     &:-moz-read-only { /* For Firefox */
       border: none;
       outline: none;
       color: $text-black
     }
 
-    &:focus {
-      border-color: $blue;
-      outline: 0 none;
-      color: $text-black;
-    }
-
-    &:disabled {
-      background: $background-gray;
+    &.placeholder {
       color: $gray;
+      font-style: italic;
     }
-
     &::-webkit-input-placeholder /* Chrome/Opera/Safari */  {
       color: $gray;
       font-style: italic;
@@ -62,17 +164,197 @@
       color: $gray;
       font-style: italic;
     }
-    &:-ms-input-placeholder  /* IE 10+ */
-    {
+    &:-ms-input-placeholder  /* IE 10+ */  {
       color: $gray;
       font-style: italic;
     }
+
+    &.sdc-select {
+      text-align: left;
+
+      + .svg-icon-wrapper {
+        height: 14px;
+        position: absolute;
+        right: 5px;
+        top: 34px;
+        fill: $dark-gray;
+
+        svg {
+          transform: rotate(270deg);
+          transition: transform $animation-duration ease-out;
+        }
+      }
+
+      &.uncollapsed {
+        border-radius: 2px 2px 0 0;
+
+        + .svg-icon-wrapper svg {
+          transform: rotate(90deg);
+        }
+      }
+
+      &:focus, &.uncollapsed {
+        .svg-icon-wrapper, + .svg-icon-wrapper {
+          fill: $light-blue;
+        }
+      }
+
+      &.error {
+        .svg-icon-wrapper, + .svg-icon-wrapper {
+          fill: $red;
+        }
+      }
+
+      // &::after {
+      //   content: ' \25BC';
+      //   position: absolute;
+      //   top: auto;
+      //   right: 10px;
+      //   color: $dark-gray;
+      // }
+
+      // &:focus {
+      //   &::after{
+      //     color: $light-blue;
+      //   }
+      // }
+
+      // &.disabled, &:disabled {
+      //   &::after {
+      //     color: $gray;
+      //   }
+      //   // &:focus {
+      //   //   border: solid 1px $light-gray;
+      //   //   outline: none;
+
+      //   //   &::after{
+      //   //     color: $gray;;
+      //   //   }
+      //   // }
+      // }
+
+      // &.error {
+      //   &::after {
+      //     color: $red;
+      //   }
+
+      //   &:focus {
+      //     &::after{
+      //       color: $red;
+      //     }
+      //   }
+      // }
+    }
   }
 
-  .sdc-label__error{
-    margin-top: 2px;
-    margin-left: 2px;
-    @extend .body-3;
+  // For animation: align border colors of input and menu
+  .sdc-select {
+    &:not(.uncollapsed) {
+      &:not(:focus) {
+        ~ .sdc-select__menu {
+          border-color: $light-gray;
+        }
+      }
+    }
+  }
+
+  @keyframes delay-overflow {
+    from { overflow: hidden; }
+  }
+
+  .sdc-select__menu:not(.uncollapsed) {
+    // transform: translateY(-400px);
+    // -webkit-transition: 4s;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    @include transition(
+      (max-height $animation-duration ease-out,
+       opacity .1s ($animation-duration - .1s)
+    ));
+  }
+
+  .sdc-select__menu.uncollapsed {
+    // top: auto;
+    // transform: translateY(200%);
+    opacity: 1;
+    max-height: 300px;
+    overflow-y: auto;
+    animation: 2s delay-overflow;
+    @include transition(max-height $animation-duration ease-out);
+  }
+
+  .sdc-select__menu {
+    position: absolute;
+    z-index: 9;
+
+    max-width: 415px;
+    // max-height: 244px;
+    height: initial;
+    width: 100%;
+    overflow-y: auto;
+
+    @include box-sizing;
+    border: 1px solid $light-blue;
+    border-top: none;
+    background: white;
+    box-shadow: 0 2px 5px 0 rgba(90, 90, 90, 0.33);
+
+    &.sdc-select__menu--top {
+      bottom: 40px;
+      border-top: 1px solid $light-blue;
+    }
+
+    &.sdc-select__menu--headless {
+      border-top: 1px solid $light-blue;
+    }
+
+    .sdc-select__option {
+      @extend .body-1;
+      padding: 0 ($input-padding * 2);
+      background: white;
+      // width: 100%;
+      height: 32px;
+      color: $text-black;
+      display: flex;
+      align-items: center;
+      
+      &:not(.unselectable):not(.header):not(.disabled) {
+        cursor: pointer;
+
+        &:not(.selected) {
+          &:hover {
+            background-color: $tlv-gray;
+          }
+        }
+      }
+
+      &.selected {
+        background-color: $tlv-hover;
+        color: $blue;
+        @extend .body-1-semibold;
+      }
+
+      &.sdc-select__option--hr, &.separator {
+        height: 0;
+        overflow: hidden;
+        border-top: 1px solid $tlv-light-gray;
+        padding: 0;
+        margin: 0;
+      }
+
+      &.sdc-select__option--group, &.group {
+        padding-left: $input-padding * 4;
+      }
+
+      &.sdc-dropdown__option--header, &.header {
+        @extend .body-3-semibold;
+      }
+
+      &.sdc-dropdown__option--disabled, &.disabled {
+        color: $gray;
+      }
+    }
   }
 
 }
